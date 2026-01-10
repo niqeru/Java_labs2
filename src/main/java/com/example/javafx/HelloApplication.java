@@ -1,32 +1,22 @@
 package com.example.javafx;
-//изменения для мерж реквеста
+
+import com.example.javafx.controller.CalculatorController;
+import com.example.javafx.model.MathEngine;
+import com.example.javafx.view.CalculatorView;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 public class HelloApplication extends Application {
-
     @Override
     public void start(Stage stage) {
+        MathEngine engine = new MathEngine();
+        CalculatorView view = new CalculatorView();
+        new CalculatorController(engine, view);
 
-
+        stage.setScene(new Scene(view, 450, 550));
+        stage.setTitle("Калькулятор");
+        stage.show();
     }
-
-    public static void main(String[] args) {
-        launch();
-    }
+    public static void main(String[] args) { launch(); }
 }
