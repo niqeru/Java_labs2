@@ -36,6 +36,7 @@ javafx {
 }
 
 dependencies {
+    implementation(project(":calculator-engine"))
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }

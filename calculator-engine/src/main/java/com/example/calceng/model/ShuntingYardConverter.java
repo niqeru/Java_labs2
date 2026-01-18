@@ -1,4 +1,4 @@
-package com.example.javafx.model;
+package com.example.calceng.model;
 
 import java.util.*;
 
@@ -33,7 +33,17 @@ public class ShuntingYardConverter {
                 int currentPrio = priority.getOrDefault(currentOp, 0);
 
                 while (!stack.isEmpty() && !stack.peek().equals("(")) {
-                    int stackPrio = priority.getOrDefault(stack.peek(), 0);
+                    String topOp = stack.peek();
+                    int stackPrio = priority.getOrDefault(topOp, 0);
+
+                    // Логика ассоциативности:
+                    // Оператор ^ (priority 3) правоассоциативен.
+                    // Если на стеке ^ и пришел ^, мы НЕ выталкиваем (ждем правую часть).
+                    if (currentOp.equals("^") && topOp.equals("^")) {
+                        break;
+                    }
+
+                    // Унарные операторы (priority >= 4) тоже обычно правоассоциативны
                     if (currentPrio >= 4 && stackPrio >= 4) {
                         break;
                     }

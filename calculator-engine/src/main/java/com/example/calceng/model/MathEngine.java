@@ -1,9 +1,9 @@
-package com.example.javafx.model;
+package com.example.calceng.model;
 
-import com.example.javafx.model.tree.BinaryNode;
-import com.example.javafx.model.tree.ExpressionNode;
-import com.example.javafx.model.tree.NumberNode;
-import com.example.javafx.model.tree.UnaryNode;
+import com.example.calceng.model.tree.BinaryNode;
+import com.example.calceng.model.tree.ExpressionNode;
+import com.example.calceng.model.tree.NumberNode;
+import com.example.calceng.model.tree.UnaryNode;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

@@ -1,7 +1,7 @@
 package com.example.javafx.controller;
 
-import com.example.javafx.model.MathEngine;
-import com.example.javafx.model.ExpressionManager;
+import com.example.calceng.model.MathEngine;
+import com.example.calceng.model.ExpressionManager;
 import com.example.javafx.view.CalculatorView;
 import javafx.application.Platform;
 
@@ -35,20 +35,25 @@ public class CalculatorController {
         try {
             String currentExpr = expressionManager.getExpression();
             double res = engine.calculate(currentExpr);
-
             expressionManager.setExpression(engine.formatResult(res));
+        } catch (ArithmeticException e) {
+            // Ловим конкретно математические ошибки (деление на 0)
+            expressionManager.setExpression(e.getMessage());
         } catch (Exception e) {
-            expressionManager.setExpression("Error");
+            // Ловим всё остальное (ошибки парсинга и т.д.)
+            expressionManager.setExpression("Invalid Expr");
         }
+        updateUI();
     }
 
     private void updateUI() {
         String expr = expressionManager.getExpression();
         view.setExpression(expr);
 
-        if (expr.equals("Error") || expr.isEmpty()) {
-            view.setResult("");
-        } else if (expressionManager.isLastCharOperator()) {
+        // Если в выражении есть буквы (сообщение об ошибке), показываем его и в результате
+        if (expr.matches(".*[a-zA-Z].*")) {
+            view.setResult(expr);
+        } else if (expr.isEmpty() || expressionManager.isLastCharOperator()) {
             view.setResult("");
         } else {
             try {
