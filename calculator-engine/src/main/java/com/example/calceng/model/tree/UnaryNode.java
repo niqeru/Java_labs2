@@ -1,4 +1,4 @@
-package com.example.javafx.model.tree;
+package com.example.calceng.model.tree;
 
 public record UnaryNode(ExpressionNode child, String function) implements ExpressionNode {
     @Override
