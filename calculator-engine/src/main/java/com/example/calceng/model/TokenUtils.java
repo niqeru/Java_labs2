@@ -1,4 +1,4 @@
-package com.example.javafx.model;
+package com.example.calceng.model;
 
 public class TokenUtils {
     public static boolean isOperator(String s) { return "+-*^:√".contains(s); }

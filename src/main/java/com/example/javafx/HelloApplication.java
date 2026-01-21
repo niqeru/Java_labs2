@@ -1,7 +1,7 @@
 package com.example.javafx;
 
 import com.example.javafx.controller.CalculatorController;
-import com.example.javafx.model.MathEngine;
+import com.example.calceng.model.MathEngine;
 import com.example.javafx.view.CalculatorView;
 import javafx.application.Application;
 import javafx.scene.Scene;

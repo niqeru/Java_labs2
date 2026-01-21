@@ -1,4 +1,4 @@
-package com.example.javafx.model;
+package com.example.calceng.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,12 @@ public class ExpressionManager {
     private final List<String> tokens = new ArrayList<>(List.of("0"));
 
     public void processInput(String text) {
+        String last = tokens.get(tokens.size() - 1);
+        if (!TokenUtils.isNumber(last) && !TokenUtils.isOperator(last) &&
+                !last.equals("(") && !last.equals(")") &&
+                !last.endsWith(".") && !text.equals("CE")) {
+            reset();
+        }
         switch (text) {
             case "C" -> reset();
             case "CE" -> handleBackSpace();
@@ -23,6 +29,9 @@ public class ExpressionManager {
 
     private void handleDigit(String digit) {
         String last = tokens.get(tokens.size() - 1);
+        if (last.equals("0") || last.equals("Error")) {
+            tokens.set(tokens.size() - 1, digit);
+        }
         if (last.equals("0")) {
             tokens.set(tokens.size() - 1, digit);
         } else if (TokenUtils.isNumber(last) || (last.contains(".") && !TokenUtils.isOperator(last))) {
@@ -35,6 +44,10 @@ public class ExpressionManager {
 
     private void handleOperator(String op) {
         String last = tokens.get(tokens.size() - 1);
+        if (last.endsWith(".")) {
+            last = last.substring(0, last.length() - 1);
+            tokens.set(tokens.size() - 1, last);
+        }
         if (op.equals("√")) {
             if (last.equals("0") && tokens.size() == 1) tokens.set(0, "√");
             else {
@@ -91,10 +104,14 @@ public class ExpressionManager {
         return TokenUtils.isOperator(last) && !last.equals(")");
     }
 
-    private void reset() { tokens.clear(); tokens.add("0"); }
+    public void reset() { tokens.clear(); tokens.add("0"); }
     public String getExpression() { return String.join("", tokens); }
     public void setExpression(String text) {
         tokens.clear();
-        tokens.add((text == null || text.isEmpty() || text.equals("Error")) ? "0" : text);
+        if (text == null || text.isEmpty()) {
+            tokens.add("0");
+        } else {
+            tokens.add(text);
+        }
     }
 }

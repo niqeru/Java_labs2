@@ -1,4 +1,4 @@
-package com.example.javafx.model;
+package com.example.calceng.model;
 
 import java.util.List;
 
